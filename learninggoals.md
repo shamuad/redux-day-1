@@ -167,14 +167,62 @@ const reducer = (state = initialState, action = {}) => {
 
 
 7.) How to set up redux in React
-createStore
-enhancer (like Redux devtools)
-Provider
 
-8.) Using connect
-Accessing state in a component using mapStateToProps
+createStore (initialize store) enhancer (like Redux devtools)
+
+// store.js
+import { createStore } from 'redux'
+import reducer from './reducers/index.js'
+
+const enhancer = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
+const store = createStore(reducer, enhancer)
+
+export default store
+
+// reducers/index.js
+import { combineReducers } from 'redux'
+import pizzas from './pizzas'
+
+export default combineReducers({
+  pizzas: pizzas
+})
+Provider (make the reduc store available in your app)
+
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux'
+import store from './store'
+
+ReactDOM.render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root')
+)
+8.) Using connect Accessing state in a component using mapStateToProps
+
+const mapStateToProps = (state) => {
+  console.log(state, 'in map state to props')
+  // the object from mapStateToProps gets added to the props of this component
+  return {
+    pizzas: state.pizzas
+  }
+}
+
+export default connect(mapStateToProps)(PizzaListContainer)
 Dispatching an action from a component
 
-todo:
-
-console.log(store)
+  addPizza = (pizza) => {
+    this.props.dispatch({
+      type: 'ADD_PIZZA',
+      payload: {
+        id: Math.ceil(Math.random()*10000),
+        ...pizza
+      }
+    })
+  }
