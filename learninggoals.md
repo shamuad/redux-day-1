@@ -87,11 +87,84 @@ getState
 
 4.) Object/Array Mutations and how to avoid them
 
+Return new values functions
+Using:
+Spread operator (shallow copy)
+Map objects and use spread operator with nested arrays or objects
 
 
 5.) How to make an Object reducer
 
+EXAMPLE:
+```javascript
+const initialState = {
+  firstName: 'Charles',
+  lastName: 'Eamnes',
+  age: 75
+}
+
+const reducer = (state = initialState, action = {}) => {
+  switch (action.type) {
+  case 'SET_FIRST_NAME':
+    return {
+      ...state,
+      firstName: action.payload
+    }
+
+  case 'SET_LAST_NAME':
+    return {
+        ...state,
+        lastName: action.payload
+    }
+  case 'SET_AGE':
+    return {
+        ...state,
+        age: action.payload
+    }
+
+  default:
+    return state
+  }
+}
+```
+
 6.) How to make an Array reducer
+
+```javascript
+const initialState = []
+const reducer = (state = initialState, action = {}) => {
+    // CYBYWY
+    // -> console.log(state, 'state', action, 'action')
+  switch (action.type) {
+  case 'ADD_DOG':
+    return [
+      ...state,
+      action.payload
+    ]
+  case 'SET_DOGS':
+    // CYBYWY
+    // console.log('hi') -> case SET_DOGS gets run?
+    // console.log(action.payload.filter())
+
+    // payload: [] -> state [] X
+    // payload: [dog, dog] -> state [dogclone, dogclone] X
+    let newState 
+    if(action.payload.length !== 0){
+        newState = action.payload.map(dog => {
+           return { ...dog }
+        }) // [dogClone, dogClone]
+    } else {
+        newState = []
+    }
+
+    return newState
+
+  default:
+    return state
+  }
+}
+```
+
 
 7.) How to set up redux in React
 createStore
