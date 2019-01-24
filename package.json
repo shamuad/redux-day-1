@@ -6,6 +6,10 @@
   "author": "reinoptland <reinoptland@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "jest": "^23.6.0",
     "redux": "^4.0.1"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
