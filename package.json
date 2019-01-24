@@ -1,0 +1,11 @@
+{
+  "name": "redux-day-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Reinoptland/redux-day-1.git",
+  "author": "reinoptland <reinoptland@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "redux": "^4.0.1"
+  }
+}
